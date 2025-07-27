@@ -1,31 +1,8 @@
-import { useEffect, useState } from 'react';
-import { getPokemons } from '../../api/getPokemons';
-import type { CustomPokemon } from '../../types/pokemon';
+import type { pokemonsListProps } from '../../types/pokemon';
 import { PokemonsListItem } from './PokemonsListItem';
 import styles from './PokemonsList.module.scss';
 
-export const PokemonsList = () => {
-  const [pokemons, setPokemons] = useState<CustomPokemon[]>([]);
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const loadPokemons = async () => {
-      try {
-        setIsLoading(true);
-        const pokemonsArr = await getPokemons();
-
-        setPokemons(pokemonsArr);
-      } catch (error) {
-        console.log('ERROR', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadPokemons();
-  }, []);
-
+export const PokemonsList = ({ pokemons, isLoading }: pokemonsListProps) => {
   return (
     <>
       {isLoading ? (

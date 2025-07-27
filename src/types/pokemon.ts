@@ -19,3 +19,8 @@ export interface PokemonDetails {
 interface PokemonSprites {
   front_default: string;
 }
+
+export interface pokemonsListProps {
+  pokemons: CustomPokemon[];
+  isLoading: boolean;
+}
