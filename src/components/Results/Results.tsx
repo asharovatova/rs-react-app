@@ -2,9 +2,9 @@ import { PokemonsList } from '../PokemonsList/PokemonsList';
 
 export const Results = () => {
   return (
-    <div>
+    <section>
       <h2>Results</h2>
       <PokemonsList />
-    </div>
+    </section>
   );
 };

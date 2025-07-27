@@ -7,14 +7,19 @@ import styles from './PokemonsList.module.scss';
 export const PokemonsList = () => {
   const [pokemons, setPokemons] = useState<CustomPokemon[]>([]);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const loadPokemons = async () => {
       try {
+        setIsLoading(true);
         const pokemonsArr = await getPokemons();
 
         setPokemons(pokemonsArr);
       } catch (error) {
         console.log('ERROR', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -22,10 +27,18 @@ export const PokemonsList = () => {
   }, []);
 
   return (
-    <ul className={styles.pokemonsList}>
-      {pokemons.map((pokemon) => (
-        <PokemonsListItem key={pokemon.id} pokemon={pokemon} />
-      ))}
-    </ul>
+    <>
+      {isLoading ? (
+        <div>Loading pokemons...</div>
+      ) : pokemons.length === 0 ? (
+        <div>No pokemons found</div>
+      ) : (
+        <ul className={styles.pokemonsList}>
+          {pokemons.map((pokemon) => (
+            <PokemonsListItem key={pokemon.id} pokemon={pokemon} />
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
