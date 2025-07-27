@@ -8,10 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "format:fix": "prettier --write .",
+    "format:fix": "prettier --write --end-of-line crlf .",
     "prepare": "husky"
   },
   "dependencies": {
+    "axios": "^1.11.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -30,6 +31,7 @@
     "globals": "^16.3.0",
     "husky": "^9.1.7",
     "prettier": "3.6.2",
+    "sass": "^1.89.2",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4"
