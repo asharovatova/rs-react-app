@@ -7,7 +7,7 @@ import { Search } from './Search';
 import { Results } from './Results/Results';
 import { LS_KEY, PAGE_LIMIT } from '../utils/constants';
 import { Pagination } from './Pagination';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 export const Main = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -56,6 +56,8 @@ export const Main = () => {
 
   return (
     <main className={styles.mainContainer}>
+      <Link to="about">About</Link>
+
       <h1>Pokedex</h1>
       <Search initialValue={searchStr} onSearch={handleSearch} />
 
