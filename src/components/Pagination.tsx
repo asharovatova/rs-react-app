@@ -1,29 +1,75 @@
 import styles from '../pages/Main/MainPage.module.scss';
-
 interface PaginationProps {
   total: number;
-  page: number;
-  setPage: (page: number) => void;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+  maxVisiblePages?: number;
 }
 
-export const Pagination = ({ total, setPage }: PaginationProps) => {
-  const pages = new Array(total).fill(0).map((_, index) => index + 1);
+export const Pagination = ({
+  total,
+  currentPage,
+  onPageChange,
+  maxVisiblePages = 5,
+}: PaginationProps) => {
+  const getVisiblePages = () => {
+    const half = Math.floor(maxVisiblePages / 2);
+    let start = Math.max(1, currentPage - half);
+    const end = Math.min(total, start + maxVisiblePages - 1);
+
+    start = Math.max(1, end - maxVisiblePages + 1);
+
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
+  const visiblePages = getVisiblePages();
+  const firstVisiblePage = visiblePages[0];
+  const lastVisiblePage = visiblePages[visiblePages.length - 1];
 
   return (
-    <div className={styles.paginationWrapper}>
-      {pages.map((num) => (
+    <div className={styles.pagination}>
+      <button
+        disabled={currentPage === 1}
+        onClick={() => onPageChange(currentPage - 1)}
+        className={styles.paginationButton}
+      >
+        &lt;
+      </button>
+
+      {firstVisiblePage > 1 && (
+        <>
+          <button onClick={() => onPageChange(1)}>1</button>
+          {firstVisiblePage > 2 && <span>...</span>}
+        </>
+      )}
+
+      {visiblePages.map((page) => (
         <button
-          key={num}
-          // className={
-          //   num === page
-          //     ? clsx(styles.paginationButton, styles.selected)
-          //     : styles.paginationButton
-          // }
-          onClick={() => setPage(num)}
+          key={page}
+          onClick={() => onPageChange(page)}
+          className={currentPage === page ? styles.active : ''}
         >
-          {num}
+          {page}
         </button>
       ))}
+
+      {lastVisiblePage < total && (
+        <>
+          {lastVisiblePage < total - 1 && <span>...</span>}
+          <button onClick={() => onPageChange(total)}>{total}</button>
+        </>
+      )}
+
+      <button
+        disabled={currentPage === total}
+        onClick={() => onPageChange(currentPage + 1)}
+        className={styles.paginationButton}
+      >
+        &gt;
+      </button>
     </div>
   );
 };

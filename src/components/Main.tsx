@@ -59,7 +59,11 @@ export const Main = () => {
       <h1>Pokedex</h1>
       <Search initialValue={searchStr} onSearch={handleSearch} />
 
-      <Pagination total={total} page={page} setPage={handlePageChange} />
+      <Pagination
+        total={total}
+        currentPage={page}
+        onPageChange={handlePageChange}
+      />
 
       {!loadingError && <Results pokemons={pokemons} isLoading={isLoading} />}
 
