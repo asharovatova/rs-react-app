@@ -5,11 +5,11 @@ import { Search } from './components/Search';
 import { LS_KEY } from './utils/constants';
 import { getPokemons } from './api/getPokemons';
 import type { CustomPokemon } from './types/pokemon';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 export function App() {
-  const [searchStr, setSearchStr] = useState(
-    localStorage.getItem(LS_KEY) || ''
-  );
+  const { searchStr, setSearchStr } = useLocalStorage(LS_KEY, '');
+
   const [pokemons, setPokemons] = useState<CustomPokemon[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -40,11 +40,7 @@ export function App() {
   const handleSearch = (searchStr: string) => {
     const trimmedStr = searchStr.trim();
 
-    localStorage.setItem(LS_KEY, trimmedStr);
-
     setSearchStr(trimmedStr);
-
-    loadPokemons(trimmedStr);
   };
 
   return (
