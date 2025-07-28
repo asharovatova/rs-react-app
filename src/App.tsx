@@ -13,16 +13,21 @@ export function App() {
   const [pokemons, setPokemons] = useState<CustomPokemon[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingError, setLoadingError] = useState<Error | null>(null);
 
   const loadPokemons = async (name: string) => {
     try {
+      setLoadingError(null);
       setIsLoading(true);
       const pokemonsArr = await getPokemons(name);
 
-      console.log('pokemonsArr', pokemonsArr);
+      // console.log('pokemonsArr', pokemonsArr);
       setPokemons(pokemonsArr);
     } catch (error) {
-      console.log('ERROR', error);
+      // console.log('ERROR', error);
+      if (error instanceof Error) {
+        setLoadingError(error);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -34,17 +39,23 @@ export function App() {
 
   const handleSearch = (searchStr: string) => {
     const trimmedStr = searchStr.trim();
+
     localStorage.setItem(LS_KEY, trimmedStr);
+
     setSearchStr(trimmedStr);
+
     loadPokemons(trimmedStr);
-    console.log('trimmedStr', trimmedStr);
   };
 
   return (
     <main>
       <h1>Pokedex</h1>
       <Search initialValue={searchStr} onSearch={handleSearch} />
-      <Results pokemons={pokemons} isLoading={isLoading} />
+
+      {!loadingError && <Results pokemons={pokemons} isLoading={isLoading} />}
+
+      {loadingError && <div>Something went wrong, please try later.</div>}
+      {/* {loadingError && <div>{loadingError.message}</div>} */}
     </main>
   );
 }

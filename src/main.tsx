@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { App } from './App.tsx';
+import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 
 const rootElement = document.createElement('div');
 rootElement.id = 'root';
@@ -11,6 +12,8 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary fallback={<div>Could&apos;t load the app</div>}>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>
 );

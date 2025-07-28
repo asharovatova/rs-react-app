@@ -7,6 +7,7 @@ export const requestGetAllPokemons = async () => {
 
   const response: { data: { results: PokemonListItem[] } } =
     await axios.get(url);
+
   return response.data.results;
 };
 
