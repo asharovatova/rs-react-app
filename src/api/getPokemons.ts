@@ -6,31 +6,31 @@ import type {
 } from '../types/pokemon';
 import { SPRITE_URL } from '../utils/constants';
 
-export const getPokemons = async (name: string) => {
-  let data: PokemonListItem[] | PokemonDetails;
+export const getPokemons = async (name: string, page: number) => {
   let pokemons: CustomPokemon[] = [];
+  let count = 1;
 
   if (!name) {
-    data = await requestGetAllPokemons();
+    const data = await requestGetAllPokemons(page);
 
-    pokemons = data.map((pokemon: PokemonListItem) =>
+    pokemons = data.results.map((pokemon: PokemonListItem) =>
       transformPokemonsListData(pokemon)
     );
+
+    count = data.count;
   } else {
-    data = await requestGetPokemon(name);
+    const data = await requestGetPokemon(name);
 
     if ('id' in data) {
       pokemons = [transformPokemonData(data)];
     }
   }
-  // console.log('data', data);
 
   // const detailedData: CustomPokemon[] = await Promise.all(
   //   data.results.map((pokemon) => axios.get(pokemon.url))
   // );
 
-  // console.log('pokemons', pokemons);
-  return pokemons;
+  return { pokemons, count };
 };
 
 function transformPokemonsListData(pokemon: PokemonListItem): CustomPokemon {

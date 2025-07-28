@@ -5,23 +5,30 @@ import type { CustomPokemon } from '../types/pokemon';
 import { getPokemons } from '../api/getPokemons';
 import { Search } from './Search';
 import { Results } from './Results/Results';
-import { LS_KEY } from '../utils/constants';
+import { LS_KEY, PAGE_LIMIT } from '../utils/constants';
+import { Pagination } from './Pagination';
+import { useSearchParams } from 'react-router-dom';
 
 export const Main = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { searchStr, setSearchStr } = useLocalStorage(LS_KEY, '');
 
   const [pokemons, setPokemons] = useState<CustomPokemon[]>([]);
+  const [total, setTotal] = useState(0);
+  const page = parseInt(searchParams.get('page') || '1');
 
   const [isLoading, setIsLoading] = useState(true);
   const [loadingError, setLoadingError] = useState<Error | null>(null);
 
-  const loadPokemons = async (name: string) => {
+  const loadPokemons = async (name: string, page: number) => {
     try {
       setLoadingError(null);
       setIsLoading(true);
-      const pokemonsArr = await getPokemons(name);
+      const { pokemons: pokemonsArr, count } = await getPokemons(name, page);
 
       setPokemons(pokemonsArr);
+      setTotal(Math.ceil(count / PAGE_LIMIT));
     } catch (error) {
       if (error instanceof Error) {
         setLoadingError(error);
@@ -32,8 +39,8 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    loadPokemons(searchStr);
-  }, [searchStr]);
+    loadPokemons(searchStr, page);
+  }, [searchStr, page]);
 
   const handleSearch = (searchStr: string) => {
     const trimmedStr = searchStr.trim();
@@ -41,10 +48,18 @@ export const Main = () => {
     setSearchStr(trimmedStr);
   };
 
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({
+      page: String(newPage),
+    });
+  };
+
   return (
     <main className={styles.mainContainer}>
       <h1>Pokedex</h1>
       <Search initialValue={searchStr} onSearch={handleSearch} />
+
+      <Pagination total={total} page={page} setPage={handlePageChange} />
 
       {!loadingError && <Results pokemons={pokemons} isLoading={isLoading} />}
 

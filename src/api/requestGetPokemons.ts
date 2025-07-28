@@ -2,13 +2,13 @@ import axios from 'axios';
 import type { PokemonDetails, PokemonListItem } from '../types/pokemon';
 import { API_URL, PAGE_LIMIT } from '../utils/constants';
 
-export const requestGetAllPokemons = async () => {
-  const url = `${API_URL}?limit=${PAGE_LIMIT}`;
+export const requestGetAllPokemons = async (page: number) => {
+  const url = `${API_URL}?limit=${PAGE_LIMIT}&offset=${(page - 1) * PAGE_LIMIT}`;
 
-  const response: { data: { results: PokemonListItem[] } } =
+  const response: { data: { results: PokemonListItem[]; count: number } } =
     await axios.get(url);
 
-  return response.data.results;
+  return { results: response.data.results, count: response.data.count };
 };
 
 export const requestGetPokemon = async (name: string) => {
