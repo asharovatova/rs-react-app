@@ -8,6 +8,7 @@ import { Results } from './Results/Results';
 import { LS_KEY, PAGE_LIMIT } from '../utils/constants';
 import { Pagination } from './Pagination';
 import { Link, useSearchParams } from 'react-router-dom';
+import { DetailsPanel } from './DetailsPanel';
 
 export const Main = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,7 +17,8 @@ export const Main = () => {
 
   const [pokemons, setPokemons] = useState<CustomPokemon[]>([]);
   const [total, setTotal] = useState(0);
-  const page = parseInt(searchParams.get('page') || '1');
+  const page = Number(searchParams.get('page') || '1');
+  const detailsId = searchParams.get('details');
 
   const [isLoading, setIsLoading] = useState(true);
   const [loadingError, setLoadingError] = useState<Error | null>(null);
@@ -59,15 +61,24 @@ export const Main = () => {
       <Link to="about">About</Link>
 
       <h1>Pokedex</h1>
-      <Search initialValue={searchStr} onSearch={handleSearch} />
 
-      <Pagination
-        total={total}
-        currentPage={page}
-        onPageChange={handlePageChange}
-      />
+      <div className={styles.resultsWrapper}>
+        <div>
+          <Search initialValue={searchStr} onSearch={handleSearch} />
 
-      {!loadingError && <Results pokemons={pokemons} isLoading={isLoading} />}
+          <Pagination
+            total={total}
+            currentPage={page}
+            onPageChange={handlePageChange}
+          />
+
+          {!loadingError && (
+            <Results pokemons={pokemons} isLoading={isLoading} />
+          )}
+        </div>
+
+        {detailsId && <DetailsPanel id={detailsId} />}
+      </div>
 
       {loadingError && <div>Something went wrong, please try later.</div>}
     </main>

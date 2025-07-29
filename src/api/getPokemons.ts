@@ -33,6 +33,12 @@ export const getPokemons = async (name: string, page: number) => {
   return { pokemons, count };
 };
 
+export const getPokemonDetails = async (id: string) => {
+  const data = await requestGetPokemon(id);
+
+  return data;
+};
+
 function transformPokemonsListData(pokemon: PokemonListItem): CustomPokemon {
   const id = Number(pokemon.url.split('/').filter(Boolean).pop());
 

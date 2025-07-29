@@ -14,6 +14,14 @@ export interface PokemonDetails {
   id: number;
   name: string;
   sprites: PokemonSprites;
+  weight: number;
+  height: number;
+  stats: {
+    base_stat: number;
+    stat: {
+      name: string;
+    };
+  }[];
 }
 
 interface PokemonSprites {
