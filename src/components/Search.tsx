@@ -1,3 +1,4 @@
+import styles from '../pages/Main/MainPage.module.scss';
 import { useState, type FormEvent } from 'react';
 
 interface SearchProps {
@@ -14,9 +15,10 @@ export const Search = ({ initialValue, onSearch }: SearchProps) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.searchWrapper}>
+      <form className={styles.searchForm} onSubmit={handleSubmit}>
         <input
+          className={styles.searchInput}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Search Pokemon..."

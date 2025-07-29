@@ -17,8 +17,10 @@ export const PokemonsListItem = ({ pokemon }: PokemonsListItemProp) => {
   return (
     <li className={styles.pokemonsListItem} onClick={handleClick}>
       <img src={pokemon.sprite} alt={pokemon.name} />
-      <span>#{pokemon.id}</span>{' '}
-      <h3 className={styles.pokemonName}>{pokemon.name}</h3>
+      <div className={styles.info}>
+        <p>#{pokemon.id}</p>
+        <h3 className={styles.pokemonName}>{pokemon.name}</h3>
+      </div>
     </li>
   );
 };

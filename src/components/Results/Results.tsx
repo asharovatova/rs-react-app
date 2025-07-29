@@ -1,10 +1,11 @@
+import styles from '../../pages/Main/MainPage.module.scss';
 import type { pokemonsListProps } from '../../types/pokemon';
 import { PokemonsList } from '../PokemonsList/PokemonsList';
 
 export const Results = ({ pokemons, isLoading }: pokemonsListProps) => {
   return (
-    <section>
-      <h2>Results</h2>
+    <section className={styles.resultsWrapper}>
+      <h2 className={styles.headingResults}>Results</h2>
       <PokemonsList pokemons={pokemons} isLoading={isLoading} />
     </section>
   );

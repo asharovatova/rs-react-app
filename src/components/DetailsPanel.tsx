@@ -46,12 +46,14 @@ export const DetailsPanel = ({ id }: DetailsPanelProps) => {
 
   return (
     <section className={styles.detailsPanel}>
-      <button onClick={handleClose}>×</button>
+      <button className={styles.buttonClose} onClick={handleClose}>
+        ×
+      </button>
 
       {isLoading ? (
         <div>Loading...</div>
       ) : detailsError ? (
-        <div>{detailsError.name}</div>
+        <div>{detailsError.message}</div>
       ) : (
         <>
           <img
@@ -67,7 +69,7 @@ export const DetailsPanel = ({ id }: DetailsPanelProps) => {
 
           <p>Height: {pokemon?.height}</p>
           <p>Weight: {pokemon?.weight}</p>
-          <h3>Stats:</h3>
+          <h3 className={styles.headingStats}>Stats:</h3>
           {pokemon?.stats.map((stat, i) => (
             <p key={i}>
               {stat.stat.name}: {stat.base_stat}

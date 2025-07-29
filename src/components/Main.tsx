@@ -58,12 +58,13 @@ export const Main = () => {
 
   return (
     <main className={styles.mainContainer}>
-      <Link to="about">About</Link>
+      <div className={styles.top}>
+        <h1>Pokedex</h1>
+        <Link to="about">About</Link>
+      </div>
 
-      <h1>Pokedex</h1>
-
-      <div className={styles.resultsWrapper}>
-        <div>
+      <div className={styles.mainContentWrapper}>
+        <div className={styles.listWrapper}>
           <Search initialValue={searchStr} onSearch={handleSearch} />
 
           <Pagination

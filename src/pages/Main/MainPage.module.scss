@@ -1,24 +1,107 @@
+.mainContainer {
+  width: 100%;
+}
+
+.mainContentWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+// TOP
+
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
 // RESULTS
 
-.resultsWrapper {
+.listWrapper {
+  flex-grow: 1;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resultsWrapper {
+  width: 100%;
+  // background-color: aquamarine;
+}
+
+.headingResults {
+  margin-bottom: 2rem;
 }
 
 // DETAILS PANEL
 
 .detailsPanel {
+  width: 300px;
+  min-width: 250px;
   border: 1px solid black;
-  padding: 10px;
+  border-radius: 10px;
+  padding: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 8px;
 
   align-self: start;
 }
 
+.buttonClose {
+  align-self: end;
+  padding: 8px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
 .detailsImg {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.headingStats {
+  margin-top: 8px;
+}
+
+// SEARCH
+
+.searchWrapper {
   width: 100%;
+  margin-bottom: 2rem;
+}
+.searchForm {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.searchInput {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 0 4px;
+  flex-grow: 1;
 }
 
 // PAGINATION
 
+.pagination {
+  display: flex;
+  gap: 8px;
+
+  margin-bottom: 2rem;
+}
+
 .pagination button.active {
-  background-color: yellowgreen;
+  background-color: black;
+  color: white;
 }
