@@ -30,7 +30,7 @@ export const Pagination = ({
   const lastVisiblePage = visiblePages[visiblePages.length - 1];
 
   return (
-    <div className={styles.pagination}>
+    <div data-testid="pagination" className={styles.pagination}>
       <button
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
@@ -42,7 +42,9 @@ export const Pagination = ({
       {firstVisiblePage > 1 && (
         <>
           <button onClick={() => onPageChange(1)}>1</button>
-          {firstVisiblePage > 2 && <span>...</span>}
+          {firstVisiblePage > 2 && (
+            <span data-testid="start-ellipsis">...</span>
+          )}
         </>
       )}
 
@@ -58,7 +60,9 @@ export const Pagination = ({
 
       {lastVisiblePage < total && (
         <>
-          {lastVisiblePage < total - 1 && <span>...</span>}
+          {lastVisiblePage < total - 1 && (
+            <span data-testid="end-ellipsis">...</span>
+          )}
           <button onClick={() => onPageChange(total)}>{total}</button>
         </>
       )}

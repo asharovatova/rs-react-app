@@ -1,8 +1,8 @@
-import { Main } from '../../components/Main';
+import { Main } from '../../components/Main/Main';
 import styles from './MainPage.module.scss';
 
 export const MainPage = () => (
-  <div className={styles.mainPageContainer}>
+  <div data-testid="main-page-container" className={styles.mainPageContainer}>
     <Main />
   </div>
 );

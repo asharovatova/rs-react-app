@@ -24,7 +24,6 @@ export const DetailsPanel = ({ id }: DetailsPanelProps) => {
         setDetailsError(null);
         const data = await getPokemonDetails(id);
 
-        console.log('details', data);
         setPokemon(data);
       } catch (err) {
         setDetailsError(
@@ -45,7 +44,7 @@ export const DetailsPanel = ({ id }: DetailsPanelProps) => {
   };
 
   return (
-    <section className={styles.detailsPanel}>
+    <section data-testid="details-panel" className={styles.detailsPanel}>
       <button className={styles.buttonClose} onClick={handleClose}>
         ×
       </button>

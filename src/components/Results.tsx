@@ -1,6 +1,6 @@
-import styles from '../../pages/Main/MainPage.module.scss';
-import type { pokemonsListProps } from '../../types/pokemon';
-import { PokemonsList } from '../PokemonsList/PokemonsList';
+import styles from '../pages/Main/MainPage.module.scss';
+import type { pokemonsListProps } from '../types/pokemon';
+import { PokemonsList } from './PokemonsList/PokemonsList';
 
 export const Results = ({ pokemons, isLoading }: pokemonsListProps) => {
   return (

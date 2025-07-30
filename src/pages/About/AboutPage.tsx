@@ -12,16 +12,12 @@ export const AboutPage = () => {
           alt="Author's portrait"
           className={styles.img}
         />
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
-        <div className={styles.phrase}>I WILL DELIVER PROJECTS ON TIME</div>
+
+        {Array.from({ length: 10 }).map((_, index) => (
+          <div key={index} className={styles.phrase}>
+            I WILL DELIVER PROJECTS ON TIME
+          </div>
+        ))}
       </div>
 
       <p>

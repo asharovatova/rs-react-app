@@ -26,10 +26,6 @@ export const getPokemons = async (name: string, page: number) => {
     }
   }
 
-  // const detailedData: CustomPokemon[] = await Promise.all(
-  //   data.results.map((pokemon) => axios.get(pokemon.url))
-  // );
-
   return { pokemons, count };
 };
 
@@ -39,7 +35,9 @@ export const getPokemonDetails = async (id: string) => {
   return data;
 };
 
-function transformPokemonsListData(pokemon: PokemonListItem): CustomPokemon {
+export function transformPokemonsListData(
+  pokemon: PokemonListItem
+): CustomPokemon {
   const id = Number(pokemon.url.split('/').filter(Boolean).pop());
 
   return {
@@ -49,7 +47,7 @@ function transformPokemonsListData(pokemon: PokemonListItem): CustomPokemon {
   };
 }
 
-function transformPokemonData(pokemon: PokemonDetails): CustomPokemon {
+export function transformPokemonData(pokemon: PokemonDetails): CustomPokemon {
   return {
     name: pokemon.name[0].toUpperCase() + pokemon.name.slice(1),
     id: pokemon.id,

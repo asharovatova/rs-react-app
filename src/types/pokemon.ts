@@ -5,7 +5,6 @@ export interface PokemonListItem {
 
 export interface CustomPokemon {
   name: string;
-  // url: string;
   id: number;
   sprite: string;
 }
