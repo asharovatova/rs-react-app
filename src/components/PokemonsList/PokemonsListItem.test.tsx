@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import { PokemonsListItem } from './PokemonsListItem';
 import { describe, expect, it } from 'vitest';
-import '@testing-library/jest-dom/vitest';
 import { renderWithProviders } from '../../utils/test-utils';
+import '@testing-library/jest-dom/vitest';
 
 describe('PokemonsListItem', () => {
   const mockPokemon = {
