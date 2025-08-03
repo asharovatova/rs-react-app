@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 import { useTheme } from '../context/useTheme';
 
 export const ThemeToggle = () => {
