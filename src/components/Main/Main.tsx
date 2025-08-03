@@ -5,6 +5,7 @@ import { Pagination } from '../Pagination';
 import { Link } from 'react-router-dom';
 import { DetailsPanel } from '../DetailsPanel';
 import { useMain } from './lib/useMain';
+import { ThemeToggle } from '../ThemeToggle';
 
 export const Main = () => {
   const {
@@ -23,7 +24,11 @@ export const Main = () => {
     <main className={styles.mainContainer}>
       <div className={styles.top}>
         <h1>Pokedex</h1>
-        <Link to="about">About</Link>
+
+        <div className={styles.flexRow}>
+          <Link to="about">About</Link>
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className={styles.mainContentWrapper}>

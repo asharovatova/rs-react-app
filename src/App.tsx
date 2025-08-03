@@ -1,6 +1,11 @@
-import './App.scss';
+import './assets/styles/main.module.scss';
 import { AppRouter } from './components/Router';
+import { ThemeProvider } from './context/ThemeContext';
 
 export function App() {
-  return <AppRouter />;
+  return (
+    <ThemeProvider>
+      <AppRouter />
+    </ThemeProvider>
+  );
 }
