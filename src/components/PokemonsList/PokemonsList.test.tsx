@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { PokemonsList } from './PokemonsList';
 import { describe, expect, it } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/vitest';
+import { renderWithProviders } from '../../utils/test-utils';
 
 const mockPokemons = [
   { id: 1, name: 'bulbasaur', sprite: 'bulbasaur.png' },
@@ -11,10 +11,8 @@ const mockPokemons = [
 
 describe('PokemonsList', () => {
   it('renders correct number of items', () => {
-    render(
-      <MemoryRouter>
-        <PokemonsList pokemons={mockPokemons} isLoading={false} />
-      </MemoryRouter>
+    renderWithProviders(
+      <PokemonsList pokemons={mockPokemons} isLoading={false} />
     );
 
     expect(screen.getAllByRole('listitem')).toHaveLength(2);

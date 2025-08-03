@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { Main } from './Main';
 import '@testing-library/jest-dom/vitest';
 import { useMain } from './lib/useMain';
+import { renderWithProviders } from '../../utils/test-utils';
 
 vi.mock('./lib/useMain', () => ({
   useMain: vi.fn(() => ({
@@ -21,22 +21,14 @@ vi.mock('./lib/useMain', () => ({
 
 describe('Main Component', () => {
   it('renders correctly', () => {
-    render(
-      <MemoryRouter>
-        <Main />
-      </MemoryRouter>
-    );
+    renderWithProviders(<Main />);
 
     expect(screen.getByText('Pokedex')).toBeInTheDocument();
     expect(screen.getByText('About')).toBeInTheDocument();
   });
 
   it('renders pagination when total > 0', () => {
-    render(
-      <MemoryRouter>
-        <Main />
-      </MemoryRouter>
-    );
+    renderWithProviders(<Main />);
 
     expect(screen.getByTestId('pagination')).toBeInTheDocument();
     expect(screen.getByText('1')).toBeInTheDocument();
@@ -55,11 +47,7 @@ describe('Main Component', () => {
       handlePageChange: vi.fn(),
     });
 
-    render(
-      <MemoryRouter>
-        <Main />
-      </MemoryRouter>
-    );
+    renderWithProviders(<Main />);
 
     expect(screen.getByTestId('details-panel')).toBeInTheDocument();
   });
@@ -79,11 +67,7 @@ describe('Main Component', () => {
       handlePageChange: vi.fn(),
     });
 
-    render(
-      <MemoryRouter>
-        <Main />
-      </MemoryRouter>
-    );
+    renderWithProviders(<Main />);
 
     expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
   });
