@@ -1,0 +1,9 @@
+:root {
+  --color-bkg: #ffffff;
+  --color-txt: #000000;
+}
+
+[data-theme='dark'] {
+  --color-bkg: #000000;
+  --color-txt: #ffffff;
+}

@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { MainPage } from './MainPage';
 import { describe, it, expect, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
+import { renderWithProviders } from '../../utils/test-utils';
 
 vi.mock('../../components/Main/Main', () => ({
   Main: () => <div data-testid="main-component">Main Component</div>,
@@ -9,7 +10,7 @@ vi.mock('../../components/Main/Main', () => ({
 
 describe('MainPage Component', () => {
   it('renders Main component inside container', () => {
-    render(<MainPage />);
+    renderWithProviders(<MainPage />);
 
     const container = screen.getByTestId('main-page-container');
     expect(container).toBeInTheDocument();

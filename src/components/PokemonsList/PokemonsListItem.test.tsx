@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { PokemonsListItem } from './PokemonsListItem';
 import { describe, expect, it } from 'vitest';
+import { renderWithProviders } from '../../utils/test-utils';
 import '@testing-library/jest-dom/vitest';
-import { MemoryRouter } from 'react-router-dom';
 
 describe('PokemonsListItem', () => {
   const mockPokemon = {
@@ -12,11 +12,9 @@ describe('PokemonsListItem', () => {
   };
 
   it('displays pokemon name and ID correctly', () => {
-    render(
-      <MemoryRouter>
-        <PokemonsListItem pokemon={mockPokemon} />
-      </MemoryRouter>
-    );
+    renderWithProviders(<PokemonsListItem pokemon={mockPokemon} />, {
+      route: '/?page=1',
+    });
 
     expect(screen.getByText('#25')).toBeInTheDocument();
     expect(screen.getByText('pikachu')).toBeInTheDocument();
