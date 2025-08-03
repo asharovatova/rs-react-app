@@ -14,10 +14,10 @@ export const PokemonsListItem = ({ pokemon }: PokemonsListItemProp) => {
   const currentPage = searchParams.get('page') || '1';
 
   const dispatch = useDispatch();
-  const selectedIds = useSelector(
-    (state: RootState) => state.selectedItems.selectedIds
+  const selectedPokemons = useSelector(
+    (state: RootState) => state.selectedItems.selectedPokemons
   );
-  const isSelected = selectedIds.includes(pokemon.id);
+  const isSelected = selectedPokemons.some((item) => item.id === pokemon.id);
 
   const handleClick = () => {
     setSearchParams({ page: currentPage, details: String(pokemon.id) });
@@ -39,7 +39,13 @@ export const PokemonsListItem = ({ pokemon }: PokemonsListItemProp) => {
         }}
         onChange={(e) => {
           e.stopPropagation();
-          dispatch(toggleItem(pokemon.id));
+          dispatch(
+            toggleItem({
+              id: pokemon.id,
+              name: pokemon.name,
+              sprite: pokemon.sprite,
+            })
+          );
         }}
       />
     </li>
