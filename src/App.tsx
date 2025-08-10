@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import './assets/styles/main.module.scss';
+import './assets/styles/main.scss';
 import { AppRouter } from './components/Router';
 import { ThemeProvider } from './context/ThemeContext';
 import { store } from './store/store';
