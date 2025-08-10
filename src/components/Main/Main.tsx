@@ -10,7 +10,7 @@ import { ThemeToggle } from '../ThemeToggle';
 export const Main = () => {
   const {
     pokemons,
-    total,
+    totalPages,
     searchStr,
     page,
     detailsId,
@@ -18,6 +18,7 @@ export const Main = () => {
     loadingError,
     handleSearch,
     handlePageChange,
+    refetch,
   } = useMain();
 
   return (
@@ -28,6 +29,9 @@ export const Main = () => {
         <div className={styles.flexRow}>
           <Link to="about">About</Link>
           <ThemeToggle />
+          <button onClick={() => refetch()} className={styles.refreshButton}>
+            ↻ Refresh
+          </button>
         </div>
       </div>
 
@@ -36,7 +40,7 @@ export const Main = () => {
           <Search initialValue={searchStr} onSearch={handleSearch} />
 
           <Pagination
-            total={total}
+            totalPages={totalPages}
             currentPage={page}
             onPageChange={handlePageChange}
           />
