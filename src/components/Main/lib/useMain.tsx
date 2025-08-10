@@ -1,43 +1,54 @@
 import { useSearchParams } from 'react-router-dom';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import { LS_KEY, PAGE_LIMIT } from '../../../utils/constants';
-import { useEffect, useState } from 'react';
+import {
+  useGetAllPokemonsQuery,
+  useGetPokemonByNameOrIdQuery,
+} from '../../../api/pokemonApi';
+import { usePokemonData } from '../../../api/getPokemons';
 import type { CustomPokemon } from '../../../types/pokemon';
-import { getPokemons } from '../../../api/getPokemons';
 
 export const useMain = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { searchStr, setSearchStr } = useLocalStorage(LS_KEY, '');
 
-  const [pokemons, setPokemons] = useState<CustomPokemon[]>([]);
-  const [total, setTotal] = useState(0);
   const page = Number(searchParams.get('page') || '1');
   const detailsId = searchParams.get('details');
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingError, setLoadingError] = useState<Error | null>(null);
+  const {
+    data: listData,
+    isLoading: isListLoading,
+    isError: isListError,
+    refetch: refetchList,
+  } = useGetAllPokemonsQuery(page, { skip: !!searchStr });
 
-  const loadPokemons = async (name: string, page: number) => {
-    try {
-      setLoadingError(null);
-      setIsLoading(true);
-      const { pokemons: pokemonsArr, count } = await getPokemons(name, page);
+  const {
+    data: singleData,
+    isLoading: isSingleLoading,
+    isError: isSingleError,
+    refetch: refetchSingle,
+  } = useGetPokemonByNameOrIdQuery(searchStr, { skip: !searchStr });
 
-      setPokemons(pokemonsArr);
-      setTotal(Math.ceil(count / PAGE_LIMIT));
-    } catch (error) {
-      if (error instanceof Error) {
-        setLoadingError(error);
-      }
-    } finally {
-      setIsLoading(false);
+  const { transformPokemonList, transformPokemonDetails } = usePokemonData();
+
+  const refetchAll = () => {
+    if (searchStr) {
+      refetchSingle();
+    } else {
+      refetchList();
     }
   };
 
-  useEffect(() => {
-    loadPokemons(searchStr, page);
-  }, [searchStr, page]);
+  const pokemons: CustomPokemon[] = searchStr
+    ? singleData
+      ? [transformPokemonDetails(singleData)]
+      : []
+    : listData?.results.map((pokemon) => transformPokemonList(pokemon)) || [];
+
+  const totalPages = searchStr
+    ? 1
+    : Math.ceil((listData?.count || 0) / PAGE_LIMIT);
 
   const handleSearch = (searchStr: string) => {
     const trimmedStr = searchStr.trim();
@@ -53,13 +64,14 @@ export const useMain = () => {
 
   return {
     pokemons,
-    total,
+    totalPages,
     searchStr,
     page,
     detailsId,
-    isLoading,
-    loadingError,
+    isLoading: isListLoading || isSingleLoading,
+    loadingError: isListError || isSingleError,
     handleSearch,
     handlePageChange,
+    refetch: refetchAll,
   };
 };

@@ -1,13 +1,13 @@
 import styles from '../pages/Main/MainPage.module.scss';
 interface PaginationProps {
-  total: number;
+  totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
   maxVisiblePages?: number;
 }
 
 export const Pagination = ({
-  total,
+  totalPages,
   currentPage,
   onPageChange,
   maxVisiblePages = 5,
@@ -15,7 +15,7 @@ export const Pagination = ({
   const getVisiblePages = () => {
     const half = Math.floor(maxVisiblePages / 2);
     let start = Math.max(1, currentPage - half);
-    const end = Math.min(total, start + maxVisiblePages - 1);
+    const end = Math.min(totalPages, start + maxVisiblePages - 1);
 
     start = Math.max(1, end - maxVisiblePages + 1);
 
@@ -58,17 +58,17 @@ export const Pagination = ({
         </button>
       ))}
 
-      {lastVisiblePage < total && (
+      {lastVisiblePage < totalPages && (
         <>
-          {lastVisiblePage < total - 1 && (
+          {lastVisiblePage < totalPages - 1 && (
             <span data-testid="end-ellipsis">...</span>
           )}
-          <button onClick={() => onPageChange(total)}>{total}</button>
+          <button onClick={() => onPageChange(totalPages)}>{totalPages}</button>
         </>
       )}
 
       <button
-        disabled={currentPage === total}
+        disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
         className={styles.paginationButton}
       >
