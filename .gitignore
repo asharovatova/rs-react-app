@@ -23,6 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
-#Test coverage reports
+# Test coverage reports
 coverage/
 *.lcov
+
+# Next files
+.next
+next-env.d.ts
