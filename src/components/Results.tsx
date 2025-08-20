@@ -1,4 +1,4 @@
-import styles from '../pages/Main/MainPage.module.scss';
+import styles from '../app/page.module.scss';
 import type { pokemonsListProps } from '../types/pokemon';
 import { PokemonsList } from './PokemonsList/PokemonsList';
 

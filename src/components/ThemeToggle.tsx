@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '../context/useTheme';
 
 export const ThemeToggle = () => {

@@ -1,17 +1,17 @@
-import { useSearchParams } from 'react-router-dom';
 import type { CustomPokemon } from '../../types/pokemon';
 import styles from './PokemonsList.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { toggleItem } from '../../store/selectedItemsSlice';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface PokemonsListItemProp {
   pokemon: CustomPokemon;
 }
 
 export const PokemonsListItem = ({ pokemon }: PokemonsListItemProp) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get('page') || '1';
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const selectedPokemons = useSelector(
@@ -20,7 +20,9 @@ export const PokemonsListItem = ({ pokemon }: PokemonsListItemProp) => {
   const isSelected = selectedPokemons.some((item) => item.id === pokemon.id);
 
   const handleClick = () => {
-    setSearchParams({ page: currentPage, details: String(pokemon.id) });
+    const params = new URLSearchParams(searchParams?.toString());
+    params.set('details', String(pokemon.id));
+    router.push(`?${params.toString()}`);
   };
 
   return (

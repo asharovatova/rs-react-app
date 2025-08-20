@@ -1,7 +1,7 @@
-import styles from './AboutPage.module.scss';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import styles from './page.module.scss';
 
-export const AboutPage = () => {
+export default function AboutPage() {
   return (
     <main className={styles.mainContainer}>
       <h1>About</h1>
@@ -22,12 +22,12 @@ export const AboutPage = () => {
 
       <p>
         This project was built for the{' '}
-        <Link to="https://rs.school/courses/reactjs" target="_blank">
+        <Link href="https://rs.school/courses/reactjs" target="_blank">
           RSSchool React Course
         </Link>
       </p>
 
-      <Link to="/">Go to Home Page</Link>
+      <Link href="/">Go to Home Page</Link>
     </main>
   );
-};
+}

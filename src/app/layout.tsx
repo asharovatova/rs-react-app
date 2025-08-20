@@ -1,3 +1,7 @@
+import '../assets/styles/main.scss';
+import { Header } from '../components/Header';
+import { Providers } from './providers';
+
 export default function RootLayout({
   children,
 }: {
@@ -6,7 +10,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div id="root">{children}</div>
+        <Providers>
+          <Header />
+
+          <div id="root">{children}</div>
+        </Providers>
       </body>
     </html>
   );

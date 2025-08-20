@@ -1,4 +1,4 @@
-import styles from '../pages/Main/MainPage.module.scss';
+import styles from '../app/page.module.scss';
 import { useState, type FormEvent } from 'react';
 
 interface SearchProps {

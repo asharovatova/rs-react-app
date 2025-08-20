@@ -1,15 +1,16 @@
-import styles from '../pages/Main/MainPage.module.scss';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import styles from '../app/page.module.scss';
+
 import { useGetPokemonByNameOrIdQuery } from '../api/pokemonApi';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface DetailsPanelProps {
   id: string;
 }
 
 export const DetailsPanel = ({ id }: DetailsPanelProps) => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const currentPage = searchParams.get('page') || '1';
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  // const currentPage = searchParams?.get('page') || '1';
 
   const {
     data: pokemon,
@@ -18,7 +19,9 @@ export const DetailsPanel = ({ id }: DetailsPanelProps) => {
   } = useGetPokemonByNameOrIdQuery(id);
 
   const handleClose = () => {
-    navigate(`?page=${currentPage}`);
+    const params = new URLSearchParams(searchParams?.toString());
+    params.delete('details');
+    router.push(`?${params.toString()}`);
   };
 
   return (
