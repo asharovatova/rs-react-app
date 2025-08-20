@@ -5,7 +5,7 @@ import Image from 'next/image';
 export default function AboutPage() {
   return (
     <main className={styles.mainContainer}>
-      <h1>About</h1>
+      <h2>About</h2>
 
       <div>
         <Image

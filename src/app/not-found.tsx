@@ -13,7 +13,7 @@ export default function NotFoundPage() {
         height={300}
       />
 
-      <h1>Oops!</h1>
+      <h2>Oops!</h2>
       <p>Page not found.</p>
 
       <Link href="/">Go to Home Page</Link>
