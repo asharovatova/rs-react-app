@@ -1,10 +1,12 @@
+'use client';
+
 import styles from '../app/[locale]/page.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 import { clearSelectedItems } from '../store/selectedItemsSlice';
-import saveAs from 'file-saver';
-import type { CustomPokemon } from '../types/pokemon';
 import { useTranslations } from 'next-intl';
+import { exportToCSV } from '../actions/exportCSV';
+import { downloadFile } from '../utils/downloadFile';
 
 export const Flyout = () => {
   const t = useTranslations('flyout');
@@ -15,20 +17,14 @@ export const Flyout = () => {
 
   if (selectedPokemons.length === 0) return null;
 
-  const handleDownload = () => {
-    const csvContent = [
-      ['ID', 'Name', 'Sprite'],
-      ...selectedPokemons.map((item: CustomPokemon) => [
-        item.id,
-        item.name,
-        item.sprite,
-      ]),
-    ]
-      .map((row) => row.join(','))
-      .join('\n');
+  const handleDownload = async () => {
+    try {
+      const { csvContent, filename } = await exportToCSV(selectedPokemons);
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    saveAs(blob, `${selectedPokemons.length}_pokemons.csv`);
+      downloadFile(csvContent, filename, 'text/csv;charset=utf-8;');
+    } catch (error) {
+      console.error('Failed to export CSV:', error);
+    }
   };
 
   return (
