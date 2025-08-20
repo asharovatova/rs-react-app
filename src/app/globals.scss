@@ -1,4 +1,4 @@
-@use './variables.module.scss';
+@use '../styles/variables.module.scss';
 
 * {
   margin: 0;
@@ -12,7 +12,6 @@ html {
 }
 
 body {
-  padding: 2em;
   font-size: 1.6rem;
   background-color: var(--color-bkg);
   color: var(--color-txt);
@@ -25,7 +24,8 @@ body {
   padding: 2em;
 }
 
-button {
+button,
+select {
   padding: 8px;
   color: var(--color-txt);
   background-color: var(--color-bkg);
@@ -35,7 +35,8 @@ button {
   cursor: pointer;
 }
 
-button:disabled {
+button:disabled,
+select:disabled {
   border: 1px solid grey;
 
   cursor: auto;

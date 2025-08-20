@@ -1,10 +1,13 @@
-import styles from '../app/page.module.scss';
+import styles from '../app/[locale]/page.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 import { clearSelectedItems } from '../store/selectedItemsSlice';
 import saveAs from 'file-saver';
+import type { CustomPokemon } from '../types/pokemon';
+import { useTranslations } from 'next-intl';
 
 export const Flyout = () => {
+  const t = useTranslations('flyout');
   const dispatch = useDispatch();
   const selectedPokemons = useSelector(
     (state: RootState) => state.selectedItems.selectedPokemons
@@ -15,7 +18,11 @@ export const Flyout = () => {
   const handleDownload = () => {
     const csvContent = [
       ['ID', 'Name', 'Sprite'],
-      ...selectedPokemons.map((item) => [item.id, item.name, item.sprite]),
+      ...selectedPokemons.map((item: CustomPokemon) => [
+        item.id,
+        item.name,
+        item.sprite,
+      ]),
     ]
       .map((row) => row.join(','))
       .join('\n');
@@ -26,15 +33,17 @@ export const Flyout = () => {
 
   return (
     <div className={styles.flyout}>
-      <span>{selectedPokemons.length} items selected</span>
+      <span>
+        {selectedPokemons.length} {t('itemsSelected')}
+      </span>
 
       <div className={styles.flexRow}>
         <button onClick={() => dispatch(clearSelectedItems())}>
-          Unselect&nbsp;all
+          {t('unselectAll')}
         </button>
 
         <button className={styles.buttonDownload} onClick={handleDownload}>
-          Download
+          {t('download')}
         </button>
       </div>
     </div>

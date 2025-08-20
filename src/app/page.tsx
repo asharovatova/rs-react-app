@@ -1,5 +1,6 @@
-import { MainPage } from '../components/MainPage';
+import { redirect } from 'next/navigation';
+import { routing } from '../i18n/routing';
 
-export default function Home() {
-  return <MainPage />;
+export default function RootPage() {
+  redirect(`/${routing.defaultLocale}`);
 }
