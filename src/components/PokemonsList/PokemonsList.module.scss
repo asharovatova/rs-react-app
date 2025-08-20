@@ -1,7 +1,7 @@
 .pokemonsList {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   gap: 8px;
 
   list-style: none;
@@ -10,7 +10,7 @@
 .pokemonsListItem {
   width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   gap: 16px;
 

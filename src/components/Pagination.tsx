@@ -1,4 +1,5 @@
-import styles from '../pages/Main/MainPage.module.scss';
+import styles from '../app/[locale]/page.module.scss';
+
 interface PaginationProps {
   totalPages: number;
   currentPage: number;

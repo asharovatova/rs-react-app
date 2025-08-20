@@ -1,15 +1,19 @@
-import styles from '../pages/Main/MainPage.module.scss';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import styles from '../app/[locale]/page.module.scss';
+
 import { useGetPokemonByNameOrIdQuery } from '../api/pokemonApi';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
+import { NO_IMAGE_AVAILABLE } from '../utils/constants';
+import { useTranslations } from 'next-intl';
 
 interface DetailsPanelProps {
   id: string;
 }
 
 export const DetailsPanel = ({ id }: DetailsPanelProps) => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const currentPage = searchParams.get('page') || '1';
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const t = useTranslations('details');
 
   const {
     data: pokemon,
@@ -18,7 +22,9 @@ export const DetailsPanel = ({ id }: DetailsPanelProps) => {
   } = useGetPokemonByNameOrIdQuery(id);
 
   const handleClose = () => {
-    navigate(`?page=${currentPage}`);
+    const params = new URLSearchParams(searchParams?.toString());
+    params.delete('details');
+    router.push(`?${params.toString()}`);
   };
 
   return (
@@ -28,15 +34,17 @@ export const DetailsPanel = ({ id }: DetailsPanelProps) => {
       </button>
 
       {isLoading ? (
-        <div>Loading...</div>
+        <div>{t('loading')}</div>
       ) : isError ? (
-        <div>Failed to load pokemon details</div>
+        <div>{t('error')}</div>
       ) : (
         <>
-          <img
-            src={pokemon?.sprites.front_default}
-            alt={pokemon?.name}
+          <Image
+            src={pokemon?.sprites.front_default || NO_IMAGE_AVAILABLE}
+            alt={pokemon?.name || 'No Pokemon images'}
             className={styles.detailsImg}
+            width={160}
+            height={160}
           />
           <p>#{id}</p>
           <h2>
@@ -44,12 +52,16 @@ export const DetailsPanel = ({ id }: DetailsPanelProps) => {
               pokemon?.name[0].toUpperCase() + pokemon?.name.slice(1)}
           </h2>
 
-          <p>Height: {pokemon?.height}</p>
-          <p>Weight: {pokemon?.weight}</p>
-          <h3 className={styles.headingStats}>Stats:</h3>
+          <p>
+            {t('height')}: {pokemon?.height}
+          </p>
+          <p>
+            {t('weight')}: {pokemon?.weight}
+          </p>
+          <h3 className={styles.headingStats}>{t('stats')}:</h3>
           {pokemon?.stats.map((stat, i) => (
             <p key={i}>
-              {stat.stat.name}: {stat.base_stat}
+              {t(stat.stat.name)}: {stat.base_stat}
             </p>
           ))}
         </>

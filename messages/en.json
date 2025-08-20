@@ -1,0 +1,45 @@
+{
+  "header": {
+    "about": "About",
+    "dark": "🌙 Dark",
+    "light": "☀️ Light",
+    "refresh": "↻ Refresh"
+  },
+  "main": {
+    "placeholder": "Search pokemon",
+    "searchButton": "Search",
+    "results": "Results",
+    "loading": "Loading pokemons...",
+    "error": "Something went wrong, please try later.",
+    "nothingFound": "No pokemons found"
+  },
+  "details": {
+    "height": "Height",
+    "weight": "Weight",
+    "stats": "Stats",
+    "hp": "HP",
+    "attack": "Attack",
+    "defense": "Defense",
+    "special-attack": "Special attack",
+    "special-defense": "Special defense",
+    "speed": "Speed",
+    "loading": "Loading...",
+    "error": "Failed to load pokemon details"
+  },
+  "flyout": {
+    "unselectAll": "Unselect all",
+    "download": "Download",
+    "itemsSelected": " items selected"
+  },
+  "about": {
+    "title": "About",
+    "text": "I WILL DELIVER PROJECTS ON TIME",
+    "developedFor": "This project was built for the",
+    "toHome": "Go to Home Page"
+  },
+  "notFound": {
+    "title": "Oops!",
+    "text": "Page not found.",
+    "toHome": "Go to Home Page"
+  }
+}

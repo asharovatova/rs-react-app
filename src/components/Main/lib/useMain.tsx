@@ -1,4 +1,3 @@
-import { useSearchParams } from 'react-router-dom';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import { LS_KEY, PAGE_LIMIT } from '../../../utils/constants';
 import {
@@ -7,14 +6,16 @@ import {
 } from '../../../api/pokemonApi';
 import { usePokemonData } from '../../../api/getPokemons';
 import type { CustomPokemon } from '../../../types/pokemon';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export const useMain = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const { searchStr, setSearchStr } = useLocalStorage(LS_KEY, '');
 
-  const page = Number(searchParams.get('page') || '1');
-  const detailsId = searchParams.get('details');
+  const page = Number(searchParams?.get('page') || '1');
+  const detailsId = searchParams?.get('details');
 
   const {
     data: listData,
@@ -57,9 +58,9 @@ export const useMain = () => {
   };
 
   const handlePageChange = (newPage: number) => {
-    setSearchParams({
-      page: String(newPage),
-    });
+    const params = new URLSearchParams(searchParams?.toString());
+    params.set('page', String(newPage));
+    router.push(`?${params.toString()}`);
   };
 
   return {
