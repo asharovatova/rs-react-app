@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { toggleItem } from '../../store/selectedItemsSlice';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 
 interface PokemonsListItemProp {
   pokemon: CustomPokemon;
@@ -27,7 +28,7 @@ export const PokemonsListItem = ({ pokemon }: PokemonsListItemProp) => {
 
   return (
     <li className={styles.pokemonsListItem} onClick={handleClick}>
-      <img src={pokemon.sprite} alt={pokemon.name} />
+      <Image src={pokemon.sprite} alt={pokemon.name} width={100} height={100} />
       <div className={styles.info}>
         <p>#{pokemon.id}</p>
         <h3 className={styles.pokemonName}>{pokemon.name}</h3>

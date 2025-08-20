@@ -3,7 +3,7 @@ import type {
   PokemonDetails,
   PokemonListItem,
 } from '../types/pokemon';
-import { SPRITE_URL } from '../utils/constants';
+import { NO_IMAGE_AVAILABLE, SPRITE_URL } from '../utils/constants';
 
 export const usePokemonData = () => {
   const transformPokemonList = (pokemon: PokemonListItem): CustomPokemon => {
@@ -18,7 +18,7 @@ export const usePokemonData = () => {
   const transformPokemonDetails = (pokemon: PokemonDetails): CustomPokemon => ({
     name: pokemon.name[0].toUpperCase() + pokemon.name.slice(1),
     id: pokemon.id,
-    sprite: pokemon.sprites.front_default,
+    sprite: pokemon.sprites.front_default || NO_IMAGE_AVAILABLE,
   });
 
   return { transformPokemonList, transformPokemonDetails };

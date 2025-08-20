@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './page.module.scss';
+import Image from 'next/image';
 
 export default function AboutPage() {
   return (
@@ -7,10 +8,12 @@ export default function AboutPage() {
       <h1>About</h1>
 
       <div>
-        <img
+        <Image
           src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/079.png"
           alt="Author's portrait"
           className={styles.img}
+          width={300}
+          height={300}
         />
 
         {Array.from({ length: 10 }).map((_, index) => (

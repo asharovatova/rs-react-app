@@ -2,6 +2,8 @@ import styles from '../app/page.module.scss';
 
 import { useGetPokemonByNameOrIdQuery } from '../api/pokemonApi';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
+import { NO_IMAGE_AVAILABLE } from '../utils/constants';
 
 interface DetailsPanelProps {
   id: string;
@@ -36,10 +38,12 @@ export const DetailsPanel = ({ id }: DetailsPanelProps) => {
         <div>Failed to load pokemon details</div>
       ) : (
         <>
-          <img
-            src={pokemon?.sprites.front_default}
-            alt={pokemon?.name}
+          <Image
+            src={pokemon?.sprites.front_default || NO_IMAGE_AVAILABLE}
+            alt={pokemon?.name || 'No Pokemon images'}
             className={styles.detailsImg}
+            width={160}
+            height={160}
           />
           <p>#{id}</p>
           <h2>
